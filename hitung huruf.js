@@ -2,28 +2,55 @@
 
 // Code
 function hitungHuruf(kata) {
-    var arr = kata.split(' ');
-    var pembanding = 0;
-    var index;
-    for(var i = 0; i < arr.length; i++){
-      var ulang = 0;
-       for (j = 0; j < arr[i].length; j++){
-        //console.log( j + ' ' + arr[i][j]);
-         for (k = arr[i].length -1; k >= 0; k--){
-          // console.log( k + ' ' + arr[i][k]);
-           if (arr[i][j] === arr[i][k] && j !== k){
-           ulang++
-            } 
-          }
-       }
-    
-      if (ulang > pembanding){
-      pembanding = ulang
-      index = i
+  var katasplit = kata.split(' ')
+  //console.log(katasplitted)
+  var max = 0
+  var result ;
+  for (var i = 0 ; i < katasplit.length ; i++){
+    var unik = [] 
+    var freq = []
+    for (var j = 0 ; j < katasplit[i].length ; j++){
+      // console.log(katasplitted[i][j]) == buat cek katanya ad smua 
+      var cek = true
+      for ( var k = 0 ; k <unik.length ; k++){
+        // console.log(katasplitted[i][j], unik[k])
+        if(katasplit[i][j] === unik[k]){
+          cek = false
+          break;
+        }
       }
-    } 
-  return arr[index]
+
+      if (cek === true){
+        unik.push(katasplit[i][j])
+      }
+    }
+    //console.log(unik) ==> cek unik 
+
+    for (var a = 0 ; a < unik.length ; a++){
+      var count = 0
+      for (var b = 0 ; b < katasplit[i].length ; b++){
+        if (katasplit[i][b] === unik[a]){
+          count++
+        }
+        //console.log(count) cek count
+      }
+      freq.push(count)
+    }
+    //console.log(freq) ==> cek freq arraynya
+    var hitungduplicate = 0
+    for (var c = 0 ; c< freq.length ; c++){
+      if (freq[c] > 1){
+        hitungduplicate += 1
+      }
+    }
+    if(max < hitungduplicate){
+      max = hitungduplicate
+      result = katasplit[i]
+    }
   }
+  return result
+}
+  
 
 // TEST CASES
 console.log(hitungHuruf('Today, is the greatest day ever')); // greatest
